@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const binRoutes = require("./routes/binRoutes");
 const authRoutes = require("./routes/authRoutes");
 const garbageCollectorRoutes = require("./routes/garbageCollectorRoutes");
+const contactRoutes = require("./routes/contact");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3005;
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/bins", binRoutes);
 app.use("/admin", authRoutes);
 app.use(garbageCollectorRoutes);
+app.use(contactRoutes);
 
 // Start the server
 const server = app.listen(port, () => {
