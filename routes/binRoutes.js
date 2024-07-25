@@ -6,6 +6,8 @@ const router = express.Router();
 // Route to create bin data
 router.post("/", binController.createBin);
 
+router.post("/:binid", binController.realtimebin);
+
 // Route to update bin data by ID
 router.put("/:binId", binController.updateBin);
 

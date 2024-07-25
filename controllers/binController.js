@@ -63,6 +63,41 @@ exports.updateBin = async (req, res) => {
   }
 };
 
+exports.realtimebin = async (req, res) => {
+  try {
+    const { refullness } = req.body;
+    const { rfnum } = req.body;
+
+    if (refullness === undefined || rfnum == undefined || rfnum != 69) {
+      return res
+        .status(400)
+        .json({ error: "Please provide all required fields" });
+    }
+
+    if (rfnum == 69) {
+      const dbinId = "669ec0e0bbd30e1d46370772";
+      const dlatitude = "84.43509673305151";
+      const dlongitude = "27.666205299452724";
+      const dlastEmptied = "2024-07-25T14:48:00Z";
+      const dfullness = refullness;
+
+      const bin = await Bin.findById(dbinId);
+
+      if (!bin) return res.status(404).json({ error: "Bin not found" });
+
+      bin.coordinates = [dlongitude, dlatitude];
+      bin.fullness = dfullness;
+      bin.lastEmptied = dlastEmptied;
+
+      await bin.save(); // Save updated bin document to the database
+
+      res.status(200).json(bin);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Get specific bin data by ID
 exports.getBin = async (req, res) => {
   try {
