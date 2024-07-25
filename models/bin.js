@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const binSchema = new mongoose.Schema({
-  location: {
-    type: String,
+  coordinates: {
+    type: [Number], // [longitude, latitude]
+    index: "2dsphere",
     required: true,
   },
   fullness: {
