@@ -5,6 +5,9 @@ const binRoutes = require("./routes/binRoutes");
 const authRoutes = require("./routes/authRoutes");
 const garbageCollectorRoutes = require("./routes/garbageCollectorRoutes");
 const contactRoutes = require("./routes/contact");
+const complaintsRoutes = require("./routes/complaintsRoutes");
+const path = require("path");
+
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3005;
@@ -15,11 +18,13 @@ connectDB();
 // Middleware to parse JSON bodies
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve static files (images)
 
 // Routes
 app.use("/bins", binRoutes);
 app.use("/admin", authRoutes);
 app.use(garbageCollectorRoutes);
+app.use("/complaints", complaintsRoutes);
 app.use(contactRoutes);
 
 // Start the server
